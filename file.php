@@ -9,13 +9,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "SELECT * FROM user_login WHERE username = '$username' AND password = '$password'";
     $result = mysqli_query($con, $sql);
 
-    if ($result->num_rows == 1) {
-        $row = $result->fetch_assoc();
-     
-        if ($username == 'officer1' && $password == 'officer123') {
+    $role_sql = "SELECT roles FROM user_login WHERE username = '$username' AND password = '$password'";
+    $role_result = mysqli_query($con, $role_sql);
+    $row = mysqli_fetch_assoc($role_result);
+    $role = $row['roles'];
+
+    if ($role == 'officer1' && $password == 'officer123') {
             header("Location: officer.php");
             exit();
-        } elseif ($username == 'candidate1' && $password == 'candidate123') {
+        } elseif ($role == 'candidate1' && $password == 'candidate123') {
             header("Location: main page candidate.php");
             exit();
         }
@@ -23,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Invalid username or password
     echo '<script>alert("Invalid username or password");</script>';
-}
+
 ?>
 
 
