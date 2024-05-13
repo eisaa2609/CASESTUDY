@@ -12,9 +12,7 @@
         .upload-section {
             text-align: right; /* Center align the upload section */
         }
-        table {
-            margin: 0 auto; /* Center the table */
-        }
+        
     </style>
 </head>
     
@@ -73,49 +71,13 @@
   </section>
 
   <section>
-    <h3>C) Kelab / Persatuan Lain Yang Disertai Di Politeknik Selangor</h3>
-    <label for="kelab-pertama">Nama Kelab / Persatuan :</label>
-    <input type="text" id="kelab-pertama" name="kelab-pertama"><br><br>
-    <label for="kelab-kedua">Jawatan Tertinggi:</label>
-    <input type="text" id="kelab-kedua" name="kelab-kedua"><br><br>
-  </section>
-
-  <section>
-  <h3>D) BUTIRAN PENCADANG DAN PENYOKONG</h3>
-  <table>
-  <tr>
-    <td>
-      <h2>Pencadang (Pelajar):</h2>
-      <label for="pencadang_tandatangan">Tandatangan:</label>
-      <input type="file" id="pencadang_tandatangan" name="pencadang_tandatangan" accept=".png, .jpg, .jpeg" required><br><br>
-      <label for="pencadang_nama">Nama:</label>
-      <input type="text" id="pencadang_nama" name="pencadang_nama" required><br><br>
-      <label for="pencadang_no_pendaftaran">No. Pendaftaran:</label>
-      <input type="text" id="pencadang_no_pendaftaran" name="pencadang_no_pendaftaran" required><br><br>
-      <label for="pencadang_no_telefon">No. Telefon:</label>
-      <input type="text" id="pencadang_no_telefon" name="pencadang_no_telefon" required><br><br>
-    </td>
-    <td>
-      <h2>Penyokong (Pelajar):</h2>
-      <label for="penyokong_tandatangan">Tandatangan:</label>
-      <input type="file" id="penyokong_tandatangan" name="penyokong_tandatangan" accept=".png, .jpg, .jpeg" required><br><br>
-      <label for="penyokong_nama">Nama:</label>
-      <input type="text" id="penyokong_nama" name="penyokong_nama" required><br><br>
-      <label for="penyokong_no_pendaftaran">No. Pendaftaran:</label>
-      <input type="text" id="penyokong_no_pendaftaran" name="penyokong_no_pendaftaran" required><br><br>
-      <label for="penyokong_no_telefon">No. Telefon:</label>
-      <input type="text" id="penyokong_no_telefon" name="penyokong_no_telefon" required><br><br>
-    </td>
-  </tr>
-</table>
-        
-        <h3>E) PENGAKUAN PEMOHON</h3>
-        <p>Saya sesungguhnya mengaku bahawa segala maklumat yang diberikan dalam borang ini adalah benar
-        belaka.</p>
-        <label for="pemohon_tandatangan">Tandatangan:</label>
-        <input type="text" id="pemohon_tandatangan" name="pemohon_tandatangan" required><br><br>
-        <label for="pemohon_tarikh">Tarikh:</label>
-        <input type="text" id="pemohon_tarikh" name="pemohon_tarikh" required><br><br>
+    <h3>C) PENGAKUAN PEMOHON</h3>
+    <p>Saya sesungguhnya mengaku bahawa segala maklumat yang diberikan dalam borang ini adalah benar
+      belaka.</p>
+    <label for="pemohon_tandatangan">Tandatangan:</label>
+    <input type="text" id="pemohon_tandatangan" name="pemohon_tandatangan" required><br><br>
+    <label for="pemohon_tarikh">Tarikh:</label>
+    <input type="text" id="pemohon_tarikh" name="pemohon_tarikh" required><br><br>
         
   </section>
   
