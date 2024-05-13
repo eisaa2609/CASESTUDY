@@ -7,6 +7,7 @@
         /* Add any custom CSS styles here */
         body {
             font-family: Arial, sans-serif;
+            background-color: powderblue;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
