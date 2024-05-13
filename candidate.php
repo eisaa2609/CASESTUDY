@@ -22,7 +22,7 @@
 
 <form>
 <img src="PbuLogo.png" alt="Politeknik Balik Pulau Logo">
-  <h2>Borang Penamaan Calon Pilihan Raya Kampus</h2>
+  <h2><center>Borang Penamaan Calon Pilihan Raya Kampus</center></h2>
   
   <section class="upload-section">
     <h3>Muat Naik Gambar Anda</h3>
