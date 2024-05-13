@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: officer.php");
             exit();
         } elseif ($username == 'candidate1' && $password == 'candidate123') {
-            header("Location: candidate.php");
+            header("Location: main page candidate.php");
             exit();
         }
     }
