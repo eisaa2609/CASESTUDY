@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     
-    <title>Main Page</title>
+    <title>Main Page Candidate</title>
     <style>
         /* Add any custom CSS styles here */
         body {
