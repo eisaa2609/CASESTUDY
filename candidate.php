@@ -1,18 +1,31 @@
 <!DOCTYPE html>
 <head>
-	<title>Borang Penamaan Calon Pilihan Raya Kampus</title>
+    <title>Borang Penamaan Calon Pilihan Raya Kampus</title>
+    <style>
+        body {
+            text-align: center; /* Center align the body content */
+        }
+        form {
+            display: inline-block; /* Ensure the form takes only the necessary width */
+            text-align: left; /* Reset text alignment for form elements */
+        }
+        .upload-section {
+            text-align: right; /* Center align the upload section */
+        }
+        table {
+            margin: 0 auto; /* Center the table */
+        }
+    </style>
 </head>
     
-
 <body>
 
-
 <form>
-<img src="D:\xampp\htdocs\webproFatin\CASE STUDY\PbuLogo.png" alt="Politeknik Balik Pulau Logo">
-  <h2><center>Borang Penamaan Calon Pilihan Raya Kampus</center></h2>
+<img src="PbuLogo.png" alt="Politeknik Balik Pulau Logo">
+  <h2>Borang Penamaan Calon Pilihan Raya Kampus</h2>
   
   <section class="upload-section">
-    <h3>Upload Your Picture</h3>
+    <h3>Muat Naik Gambar Anda</h3>
     <input type="file" id="user-picture" name="user-picture"><br><br>
    </section>
 
@@ -95,7 +108,7 @@
     </td>
   </tr>
 </table>
-		
+        
         <h3>E) PENGAKUAN PEMOHON</h3>
         <p>Saya sesungguhnya mengaku bahawa segala maklumat yang diberikan dalam borang ini adalah benar
         belaka.</p>
@@ -109,8 +122,7 @@
 </body>
 </html>
 
-
-  <input type="submit" value="Hantar">
+<input type="submit" value="Hantar">
 </form>
 </body>
 </html>
