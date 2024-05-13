@@ -72,8 +72,7 @@
                 {
             ?>
             <tr>
-                <!-- FETCHING DATA FROM EACH
-                    ROW OF EVERY COLUMN -->
+                <!-- Get data from each column -->
                 <td><?php echo $i;?></td>
                 <td><?php echo $rows['name'];?></td>
                 <td><?php echo $rows['icNo'];?></td>
