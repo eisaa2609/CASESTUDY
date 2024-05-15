@@ -36,7 +36,7 @@
     <div class="container">
         <h1>Welcome to the Candidate Nomination Page</h1>
         <p>Click the button below to access the nomination form:</p>
-        <a href="candidate.php" class="btn">Nomination Form</a>
+        <a href="Candidate_form.php" class="btn">Nomination Form</a>
     </div>
 </body>
 </html>
