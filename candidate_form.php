@@ -1,8 +1,6 @@
 <!DOCTYPE html>
-
+<html>
 <head>
-    
-    
     <title>Borang Penamaan Calon Pilihan Raya Kampus</title>
     <style>
         body {
@@ -55,12 +53,13 @@
 </head>
 <body>
 
+
 <?php
 // Database connection
 include('connection.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Set parameters and execute
+    
     $nama = $_POST['nama'];
     $icNo = $_POST['icNo'];
     $regNo = $_POST['regNo'];
@@ -74,29 +73,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $exco = $_POST['exco'];
     $date = $_POST['date'];
 
-    // Handle file upload
-    $target_dir = "uploads/";
-    $target_file = $target_dir . basename($_FILES["sign"]["name"]);
-    if (move_uploaded_file($_FILES["sign"]["tmp_name"], $target_file)) {
-        $sign = $target_file;
+    // File uploads
+    $user_picture_name = isset($_FILES['user-picture']['name']) ? $_FILES['user-picture']['name'] : ''; 
+    $user_picture_tmp = isset($_FILES['user-picture']['tmp_name']) ? $_FILES['user-picture']['tmp_name'] : ''; 
+    if (!empty($user_picture_tmp)) {
+        $user_picture = "uploads/" . $user_picture_name;
+        move_uploaded_file($user_picture_tmp, $user_picture); 
+    } 
+
+    $sign_name = isset($_FILES['sign']['name']) ? $_FILES['sign']['name'] : ''; 
+    $sign_tmp = isset($_FILES['sign']['tmp_name']) ? $_FILES['sign']['tmp_name'] : '';
+    if (!empty($sign_tmp)) {
+        $sign = "uploads/" . $sign_name;
+        move_uploaded_file($sign_tmp, $sign); 
+    } 
+
+    // Insert data into the database
+    $sql = "INSERT INTO candidates (name, icNo, regNo, phoneNo, program, jabatan, hpnm, ulang_semester, tindakan_tatatertib, sedang_tatatertib, exco, date, user_picture, sign)
+            VALUES ('$nama', '$icNo', '$regNo', '$phoneNo', '$program', '$jabatan', '$hpnm', '$ulang_semester', '$tindakan_tatatertib', '$sedang_tatatertib', '$exco', '$date', '$user_picture_name', '$sign_name')";
+
+    if (mysqli_query($con, $sql)) {
+        header("location: candidate_save.php");
     } else {
-        $sign = "";
+        echo "Error: " . $sql . "<br>" . mysqli_error($con);
     }
 
-    if ($stmt->execute()) {
-        header("Location: candidate_save.php");
-        exit();
-    } else {
-        echo "Error: " . mysqli_error($stmt);
-    }
-
-    mysqli_close($stmt);
+    mysqli_close($con);
 }
-mysqli_close($con);
 ?>
 
 
-<form method="POST" action="candidate_save.php">
+
+<form method="POST" enctype="multipart/form-data">
     <img src="images/PbuLogo.png" alt="Politeknik Balik Pulau Logo">
     <h2><center>Borang Penamaan Calon Pilihan Raya Kampus</center></h2>
 
@@ -107,83 +115,108 @@ mysqli_close($con);
     
     <section>
         <h3>A) Butir-Butir Calon</h3>
-        <label for="nama">Nama Penuh:</label>
-        <input type="text" id="nama" name="nama" required><br>
-
-        <label for="icNo">No. Kad Pengenalan:</label>
-        <input type="text" id="icNo" name="icNo" required><br>
-
-        <label for="regNo">No. Pendaftaran:</label>
-        <input type="text" id="regNo" name="regNo" required><br>
-
-        <label for="phoneNo">No. Telefon Bimbit:</label>
-        <input type="tel" id="phoneNo" name="phoneNo" required><br>
-
-        <label for="program">Program:</label>
-        <input type="text" id="program" name="program" required><br>
-
-        <label for="jabatan">Jabatan:</label>
-        <input type="text" id="jabatan" name="jabatan" required><br>
+        <table>
+            <tr>
+                <td><label for="nama">Nama Penuh:</label></td>
+                <td><input type="text" id="nama" name="nama" required></td>
+            </tr>
+            <tr>
+                <td><label for="icNo">No. Kad Pengenalan:</label></td>
+                <td><input type="text" id="icNo" name="icNo" required></td>
+            </tr>
+            <tr>
+                <td><label for="regNo">No. Pendaftaran:</label></td>
+                <td><input type="text" id="regNo" name="regNo" required></td>
+            </tr>
+            <tr>
+                <td><label for="phoneNo">No. Telefon Bimbit:</label></td>
+                <td><input type="tel" id="phoneNo" name="phoneNo" required></td>
+            </tr>
+            <tr>
+                <td><label for="program">Program:</label></td>
+                <td><input type="text" id="program" name="program" required></td>
+            </tr>
+            <tr>
+                <td><label for="jabatan">Jabatan:</label></td>
+                <td><input type="text" id="jabatan" name="jabatan" required></td>
+            </tr>
+        </table>
     </section>
 
     <section>
         <h3>B) Kelayakan</h3>
-        <label for="hpnm">Himpunan Nilai Mata (HPNM) Terkini:</label>
-        <input type="text" id="hpnm" name="hpnm" required><br><br>
+        <table>
+            <tr>
+                <td><label for="hpnm">Himpunan Nilai Mata (HPNM) Terkini:</label>
+                <td><input type="text" id="hpnm" name="hpnm" required><br><br>
+            </tr>
 
-        <label>Pernah mengulang semester?</label>
-        <div class="radio-group">
-            <input type="radio" id="ulang_semester_ya" name="ulang_semester" value="YA">
-            <label for="ulang_semester_ya">YA</label>
+        <tr>
+        <td>Pernah mengulang semester?</td>
+            <td>
+                <div class="radio-group">
+                    <input type="radio" id="ulang_semester_ya" name="ulang_semester" value="YA">
+                    <label for="ulang_semester_ya">YA</label>
 
-            <input type="radio" id="ulang_semester_tidak" name="ulang_semester" value="TIDAK">
-            <label for="ulang_semester_tidak">TIDAK</label>
-        </div><br><br>
+                    <input type="radio" id="ulang_semester_tidak" name="ulang_semester" value="TIDAK">
+                    <label for="ulang_semester_tidak">TIDAK</label>
+                </div>
+            </td>
+        </tr>
 
-        <label>Pernah dikenakan tindakan tatatertib?</label>
-        <div class="radio-group">
-            <input type="radio" id="tindakan_tatatertib_ya" name="tindakan_tatatertib" value="YA">
-            <label for="tindakan_tatatertib_ya">YA</label>
+        <td>Pernah dikenakan tindakan tatatertib?</td>
+            <td>
+                <div class="radio-group">
+                    <input type="radio" id="tindakan_tatatertib_ya" name="tindakan_tatatertib" value="YA">
+                    <label for="tindakan_tatatertib_ya">YA</label>
+                    <input type="radio" id="tindakan_tatatertib_tidak" name="tindakan_tatatertib" value="TIDAK">
+                    <label for="tindakan_tatatertib_tidak">TIDAK</label>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>Sedang menunggu tindakan tatatertib?</td>
+            <td>
+                <div class="radio-group">
+                    <input type="radio" id="sedang_tatatertib_ya" name="sedang_tatatertib" value="YA">
+                    <label for="sedang_tatatertib_ya">YA</label>
+                    <input type="radio" id="sedang_tatatertib_tidak" name="sedang_tatatertib" value="TIDAK">
+                    <label for="sedang_tatatertib_tidak">TIDAK</label>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>Pernah menjadi exco MPP sebelum ini?</td>
+            <td>
+                <div class="radio-group">
+                    <input type="radio" id="exco_ya" name="exco" value="YA">
+                    <label for="exco_ya">YA</label>
+                    <input type="radio" id="exco_tidak" name="exco" value="TIDAK">
+                    <label for="exco_tidak">TIDAK</label>
+                </div>
+            </td>
+        </tr>
+    </table>
+</section>
 
-            <input type="radio" id="tindakan_tatatertib_tidak" name="tindakan_tatatertib" value="TIDAK">
-            <label for="tindakan_tatatertib_tidak">TIDAK</label>
-        </div><br><br>
+<section>
+    <h3>C) PENGAKUAN PEMOHON</h3>
+    <table>
+            <td>Saya sesungguhnya mengaku bahawa segala maklumat yang diberikan dalam borang ini adalah benar belaka.</td>
+        </tr>
+        <tr>
+            <td><label for="sign">Tandatangan Digital:</label></td>
+            <td><input type="file" id="sign" name="sign" required></td>
+        </tr>
+        <tr>
+            <td><label for="date">Tarikh:</label></td>
+            <td><input type="text" id="date" name="date" required></td>
+        </tr>
+    </table>
+</section>
 
-        <label>Sedang menunggu tindakan tatatertib?</label>
-        <div class="radio-group">
-            <input type="radio" id="sedang_tatatertib_ya" name="sedang_tatatertib" value="YA">
-            <label for="sedang_tatatertib_ya">YA</label>
-
-            <input type="radio" id="sedang_tatatertib_tidak" name="sedang_tatatertib" value="TIDAK">
-            <label for="sedang_tatatertib_tidak">TIDAK</label>
-        </div><br><br>
-
-        <label>Pernah menjadi exco MPP sebelum ini?</label>
-        <div class="radio-group">
-            <input type="radio" id="exco_ya" name="exco" value="YA">
-            <label for="exco_ya">YA</label>
-            
-            <input type="radio" id="exco_tidak" name="exco" value="TIDAK">
-            <label for="exco_tidak">TIDAK</label>
-        </div><br><br>
-    </section>
-
-    <section>
-        <h3>C) PENGAKUAN PEMOHON</h3>
-        <p>Saya sesungguhnya mengaku bahawa segala maklumat yang diberikan dalam borang ini adalah benar belaka.</p>
-        <label for="sign">Tandatangan Digital:</label>
-        <input type="file" id="sign" name="sign" required><br>
-
-        <label for="date">Tarikh:</label>
-        <input type="text" id="date" name="date" required><br>
-    </section>
-
-    <input type="submit" value="Hantar">
+<input type="submit" value="Hantar">
 </form>
 
 </body>
 </html>
-
-
-
-
