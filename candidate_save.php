@@ -36,7 +36,7 @@
     <div class="container">
         <h1>Congratulations! Your data has been successfully saved</h1>
         <p>Click the button below to go to list of created candidate nomination form:</p>
-        <a href="list_candidate.php" class="btn">List of Candidates</a>
+        <a href="candidate_list.php" class="btn">List of Candidates</a>
     </div>
 </body>
 </html>
