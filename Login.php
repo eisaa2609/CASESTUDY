@@ -1,30 +1,40 @@
 <?php
-include 'connection.php';
+include ('connection.php');
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["btnLogin"])) {
     $username = $_POST["Username"];
     $password = $_POST["Password"];
 
-    // Query the database
+    //database query
     $sql = "SELECT * FROM user_login WHERE username = '$username' AND password = '$password'";
     $result = mysqli_query($con, $sql);
 
-    $role_sql = "SELECT roles FROM user_login WHERE username = '$username' AND password = '$password'";
-    $role_result = mysqli_query($con, $role_sql);
-    $row = mysqli_fetch_assoc($role_result);
-    $role = $row['roles'];
-
-    if ($role == 'officer1' && $password == 'officer123') {
-            header("Location: officer.php");
-            exit();
-        } elseif ($role == 'candidate1' && $password == 'candidate123') {
-            header("Location: main page candidate.php");
-            exit();
-        }
+    //Check if query executed successfully
+    if (!$result) {
+        // Error handling for query execution
+        echo "Error: " . mysqli_error($con);
+        exit();
     }
 
-    // Invalid username or password
-    echo '<script>alert("Invalid username or password");</script>';
+    if (mysqli_num_rows($result) > 0){
+        $row = mysqli_fetch_assoc($result);
+        $role = $row['roles'];
+
+        if ($role == 'officer') {
+                header("Location: main_page_officer.php");
+                exit();
+        } elseif ($role == 'candidate') {
+                header("Location: main_page_candidate.php");
+                exit();
+        } 
+    } else {
+        // Invalid username or password
+        echo '<script>alert("Invalid username or password");</script>';
+    }
+    
+} 
+
+    
 
 ?>
 
