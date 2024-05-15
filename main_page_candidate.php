@@ -4,7 +4,6 @@
     
     <title>Main Page Candidate</title>
     <style>
-        /* Add any custom CSS styles here */
         body {
             font-family: Arial, sans-serif;
             background-color: powderblue;
