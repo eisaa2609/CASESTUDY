@@ -18,15 +18,22 @@
     
 <body>
 
+<?php
+
+
+
+?>
+
+
+
 <form>
 <img src="images/PbuLogo.png" alt="Politeknik Balik Pulau Logo">
   <h2><center>Borang Penamaan Calon Pilihan Raya Kampus</center></h2>
-  
+
   <section class="upload-section">
     <h3>Muat Naik Gambar Anda</h3>
     <input type="file" id="user-picture" name="user-picture"><br><br>
-   </section>
-
+  </section>
   
   <section>
     <h3>A) Butir-Butir Calon</h3>
@@ -78,9 +85,8 @@
     <input type="text" id="pemohon_tandatangan" name="pemohon_tandatangan" required><br><br>
     <label for="pemohon_tarikh">Tarikh:</label>
     <input type="text" id="pemohon_tarikh" name="pemohon_tarikh" required><br><br>
-        
   </section>
-  
+
 </body>
 </html>
 
