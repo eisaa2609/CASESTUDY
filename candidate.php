@@ -58,20 +58,11 @@
 
 <?php
 // Database connection
-$servername = "localhost";
-$username = "root";
-$password = "Atien098";
-$dbname = "candidate_nomination_system";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include('connection.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Prepare and bind
-    $stmt = $conn->prepare("INSERT INTO candidates (nama, icNo, regNo, phoneNo, program, jabatan, hpnm, ulang_semester, tindakan_tatatertib, sedang_tatatertib, exco, sign, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $con->prepare("INSERT INTO candidates (nama, icNo, regNo, phoneNo, program, jabatan, hpnm, ulang_semester, tindakan_tatatertib, sedang_tatatertib, exco, sign, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("sssssssssssss", $nama, $icNo, $regNo, $phoneNo, $program, $jabatan, $hpnm, $ulang_semester, $tindakan_tatatertib, $sedang_tatatertib, $exco, $sign, $date);
 
     // Set parameters and execute
@@ -107,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->close();
 }
 
-$conn->close();
+$con->close();
 ?>
 
 
