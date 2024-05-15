@@ -3,14 +3,14 @@
     <title>Borang Penamaan Calon Pilihan Raya Kampus</title>
     <style>
         body {
-            text-align: center; /* Center align the body content */
+            text-align: center;
         }
         form {
-            display: inline-block; /* Ensure the form takes only the necessary width */
-            text-align: left; /* Reset text alignment for form elements */
+            display: inline-block;
+            text-align: left;
         }
         .upload-section {
-            text-align: right; /* Center align the upload section */
+            text-align: right;
         }
         
     </style>
@@ -18,15 +18,7 @@
     
 <body>
 
-<?php
-
-
-
-?>
-
-
-
-<form>
+<form method="POST">
 <img src="images/PbuLogo.png" alt="Politeknik Balik Pulau Logo">
   <h2><center>Borang Penamaan Calon Pilihan Raya Kampus</center></h2>
 
@@ -87,8 +79,6 @@
     <input type="text" id="pemohon_tarikh" name="pemohon_tarikh" required><br><br>
   </section>
 
-</body>
-</html>
 
 <input type="submit" value="Hantar">
 </form>
