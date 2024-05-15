@@ -1,86 +1,200 @@
 <!DOCTYPE html>
+
 <head>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Borang Penamaan Calon Pilihan Raya Kampus</title>
     <style>
         body {
             text-align: center;
+            font-family: Arial, sans-serif;
         }
         form {
             display: inline-block;
             text-align: left;
+            width: 60%;
         }
         .upload-section {
-            text-align: right;
+            text-align: left;
+            margin-bottom: 20px;
         }
-        
+        .upload-section h4 {
+            margin-bottom: 10px;
+        }
+        img {
+            width: 150px; 
+            display: block;
+            margin: 0 auto 20px auto;
+        }
+        section {
+            margin-bottom: 20px;
+        }
+        label {
+            display: inline-block;
+            width: 200px;
+            vertical-align: top;
+        }
+        input[type="text"],
+        input[type="tel"],
+        input[type="file"],
+        input[type="radio"] {
+            margin-bottom: 10px;
+        }
+        input[type="submit"] {
+            display: block;
+            margin: 0 auto;
+        }
+        .radio-group {
+            display: flex;
+            align-items: center;
+        }
+        .radio-group label {
+            width: auto;
+            margin-left: 10px;
+        }
     </style>
 </head>
-    
 <body>
 
-<form method="POST">
-<img src="images/PbuLogo.png" alt="Politeknik Balik Pulau Logo">
-  <h2><center>Borang Penamaan Calon Pilihan Raya Kampus</center></h2>
+<?php
+// Database connection
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "your_database_name";
 
-  <section class="upload-section">
-    <h3>Muat Naik Gambar Anda</h3>
-    <input type="file" id="user-picture" name="user-picture"><br><br>
-  </section>
-  
-  <section>
-    <h3>A) Butir-Butir Calon</h3>
-    <label for="nama-penuh">Nama Penuh:</label>
-    <input type="text" id="nama-penuh" name="nama-penuh"><br><br>
-    <label for="no-kad-pengenalan">No. Kad Pengenalan:</label>
-    <input type="text" id="no-kad-pengenalan" name="no-kad-pengenalan"><br><br>
-    <label for="no-pendaftaran">No. Pendaftaran:</label>
-    <input type="text" id="no-pendaftaran" name="no-pendaftaran"><br><br>
-    <label for="no-telefon-bimb">No. Telefon Bimbit:</label>
-    <input type="tel" id="no-telefon-bimb" name="no-telefon-bimb"><br><br>
-    <label for="program">Program:</label>
-    <input type="text" id="program" name="program"><br><br>
-    <label for="jabatan">Jabatan:</label>
-    <input type="text" id="jabatan" name="jabatan"><br><br>
-  </section>
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-  <section>
-    <h3>B) Kelayakan</h3>
-    <label for="himpunan-nilai-mata">Himpunan Nilai Mata (HPNM) Terkini:</label>
-    <input type="text" id="himpunan-nilai-mata" name="himpunan-nilai-mata"><br><br>
-    <label for="mengulang-semester">Pernah mengulang semester?</label>
-    <input type="radio" id="mengulang-semester-ya" name="mengulang-semester" value="YA">
-    <label for="mengulang-semester-ya">YA</label>
-    <input type="radio" id="mengulang-semester-tidak" name="mengulang-semester" value="TIDAK">
-    <label for="mengulang-semester-tidak">TIDAK</label><br><br>
-    <label for="dikenakan-tindakan-tatatertib">Pernah dikenakan tindakan tatatertib?</label>
-    <input type="radio" id="dikenakan-tindakan-tatatertib-ya" name="dikenakan-tindakan-tatatertib" value="YA">
-    <label for="dikenakan-tindakan-tatatertib-ya">YA</label>
-    <input type="radio" id="dikenakan-tindakan-tatatertib-tidak" name="dikenakan-tindakan-tatatertib" value="TIDAK">
-    <label for="dikenakan-tindakan-tatatertib-tidak">TIDAK</label><br><br>
-    <label for="sedang-menunggu-tindakan-tatatertib">Sedang menunggu tindakan tatatertib?</label>
-    <input type="radio" id="sedang-menunggu-tindakan-tatatertib-ya" name="sedang-menunggu-tindakan-tatatertib" value="YA">
-    <label for="sedang-menunggu-tindakan-tatatertib-ya">YA</label>
-    <input type="radio" id="sedang-menunggu-tindakan-tatatertib-tidak" name="sedang-menunggu-tindakan-tatatertib" value="TIDAK">
-    <label for="sedang-menunggu-tindakan-tatatertib-tidak">TIDAK</label><br><br>
-    <label for="menjadi-exco-mpp">Pernah menjadi exco MPP sebelum ini?</label>
-    <input type="radio" id="menjadi-exco-mpp-ya" name="menjadi-exco-mpp" value="YA">
-    <label for="menjadi-exco-mpp-ya">YA</label>
-    <input type="radio" id="menjadi-exco-mpp-tidak" name="menjadi-exco-mpp" value="TIDAK">
-    <label for="menjadi-exco-mpp-tidak">TIDAK</label><br><br>
-  </section>
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-  <section>
-    <h3>C) PENGAKUAN PEMOHON</h3>
-    <p>Saya sesungguhnya mengaku bahawa segala maklumat yang diberikan dalam borang ini adalah benar
-      belaka.</p>
-    <label for="pemohon_tandatangan">Tandatangan:</label>
-    <input type="text" id="pemohon_tandatangan" name="pemohon_tandatangan" required><br><br>
-    <label for="pemohon_tarikh">Tarikh:</label>
-    <input type="text" id="pemohon_tarikh" name="pemohon_tarikh" required><br><br>
-  </section>
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Prepare and bind
+    $stmt = $conn->prepare("INSERT INTO candidates (nama, icNo, regNo, phoneNo, program, jabatan, hpnm, ulang_semester, tindakan_tatatertib, sedang_tatatertib, exco, sign, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssssssssssss", $nama, $icNo, $regNo, $phoneNo, $program, $jabatan, $hpnm, $ulang_semester, $tindakan_tatatertib, $sedang_tatatertib, $exco, $sign, $date);
+
+    // Set parameters and execute
+    $nama = $_POST['nama'];
+    $icNo = $_POST['icNo'];
+    $regNo = $_POST['regNo'];
+    $phoneNo = $_POST['phoneNo'];
+    $program = $_POST['program'];
+    $jabatan = $_POST['jabatan'];
+    $hpnm = $_POST['hpnm'];
+    $ulang_semester = $_POST['ulang_semester'];
+    $tindakan_tatatertib = $_POST['tindakan_tatatertib'];
+    $sedang_tatatertib = $_POST['sedang_tatatertib'];
+    $exco = $_POST['exco'];
+    $date = $_POST['date'];
+
+    // Handle file upload
+    $target_dir = "uploads/";
+    $target_file = $target_dir . basename($_FILES["sign"]["name"]);
+    if (move_uploaded_file($_FILES["sign"]["tmp_name"], $target_file)) {
+        $sign = $target_file;
+    } else {
+        $sign = "";
+    }
+
+    if ($stmt->execute()) {
+        header("Location: hantar.php");
+        exit();
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+
+    $stmt->close();
+}
+
+$conn->close();
+?>
 
 
-<input type="submit" value="Hantar">
+<form method="POST" action="hantar.php" enctype="multipart/form-data">
+    <img src="images/PbuLogo.png" alt="Politeknik Balik Pulau Logo">
+    <h2><center>Borang Penamaan Calon Pilihan Raya Kampus</center></h2>
+
+    <section class="upload-section">
+        <h4>Muat Naik Gambar</h4>
+        <input type="file" id="user-picture" name="user-picture">
+    </section>
+    
+    <section>
+        <h3>A) Butir-Butir Calon</h3>
+        <label for="nama">Nama Penuh:</label>
+        <input type="text" id="nama" name="nama" required><br>
+
+        <label for="icNo">No. Kad Pengenalan:</label>
+        <input type="text" id="icNo" name="icNo" required><br>
+
+        <label for="regNo">No. Pendaftaran:</label>
+        <input type="text" id="regNo" name="regNo" required><br>
+
+        <label for="phoneNo">No. Telefon Bimbit:</label>
+        <input type="tel" id="phoneNo" name="phoneNo" required><br>
+
+        <label for="program">Program:</label>
+        <input type="text" id="program" name="program" required><br>
+
+        <label for="jabatan">Jabatan:</label>
+        <input type="text" id="jabatan" name="jabatan" required><br>
+    </section>
+
+    <section>
+        <h3>B) Kelayakan</h3>
+        <label for="hpnm">Himpunan Nilai Mata (HPNM) Terkini:</label>
+        <input type="text" id="hpnm" name="hpnm" required><br><br>
+
+        <label>Pernah mengulang semester?</label>
+        <div class="radio-group">
+            <input type="radio" id="ulang_semester_ya" name="ulang_semester" value="YA">
+            <label for="ulang_semester_ya">YA</label>
+            <input type="radio" id="ulang_semester_tidak" name="ulang_semester" value="TIDAK">
+            <label for="ulang_semester_tidak">TIDAK</label>
+        </div><br><br>
+
+        <label>Pernah dikenakan tindakan tatatertib?</label>
+        <div class="radio-group">
+            <input type="radio" id="tindakan_tatatertib_ya" name="tindakan_tatatertib" value="YA">
+            <label for="tindakan_tatatertib_ya">YA</label>
+            <input type="radio" id="tindakan_tatatertib_tidak" name="tindakan_tatatertib" value="TIDAK">
+            <label for="tindakan_tatatertib_tidak">TIDAK</label>
+        </div><br><br>
+
+        <label>Sedang menunggu tindakan tatatertib?</label>
+        <div class="radio-group">
+            <input type="radio" id="sedang_tatatertib_ya" name="sedang_tatatertib" value="YA">
+            <label for="sedang_tatatertib_ya">YA</label>
+            <input type="radio" id="sedang_tatatertib_tidak" name="sedang_tatatertib" value="TIDAK">
+            <label for="sedang_tatatertib_tidak">TIDAK</label>
+        </div><br><br>
+
+        <label>Pernah menjadi exco MPP sebelum ini?</label>
+        <div class="radio-group">
+            <input type="radio" id="exco_ya" name="exco" value="YA">
+            <label for="exco_ya">YA</label>
+            <input type="radio" id="exco_tidak" name="exco" value="TIDAK">
+            <label for="exco_tidak">TIDAK</label>
+        </div><br><br>
+    </section>
+
+    <section>
+        <h3>C) PENGAKUAN PEMOHON</h3>
+        <p>Saya sesungguhnya mengaku bahawa segala maklumat yang diberikan dalam borang ini adalah benar belaka.</p>
+        <label for="sign">Tandatangan Digital:</label>
+        <input type="file" id="sign" name="sign" required><br>
+
+        <label for="date">Tarikh:</label>
+        <input type="text" id="date" name="date" required><br>
+    </section>
+
+    <input type="submit" value="Hantar">
 </form>
+
 </body>
 </html>
+
+
+
+
