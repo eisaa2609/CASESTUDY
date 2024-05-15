@@ -54,61 +54,6 @@
 </head>
 <body>
 
-<?php
-// Database connection
-$servername = "localhost";
-$username = "root";
-$password = "Atien098";
-$dbname = "candidate_nomination_system";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Prepare and bind
-    $stmt = $conn->prepare("INSERT INTO candidates (nama, icNo, regNo, phoneNo, program, jabatan, hpnm, ulang_semester, tindakan_tatatertib, sedang_tatatertib, exco, sign, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssssssssssss", $nama, $icNo, $regNo, $phoneNo, $program, $jabatan, $hpnm, $ulang_semester, $tindakan_tatatertib, $sedang_tatatertib, $exco, $sign, $date);
-
-    // Set parameters and execute
-    $nama = $_POST['nama'];
-    $icNo = $_POST['icNo'];
-    $regNo = $_POST['regNo'];
-    $phoneNo = $_POST['phoneNo'];
-    $program = $_POST['program'];
-    $jabatan = $_POST['jabatan'];
-    $hpnm = $_POST['hpnm'];
-    $ulang_semester = $_POST['ulang_semester'];
-    $tindakan_tatatertib = $_POST['tindakan_tatatertib'];
-    $sedang_tatatertib = $_POST['sedang_tatatertib'];
-    $exco = $_POST['exco'];
-    $date = $_POST['date'];
-
-    // Handle file upload
-    $target_dir = "uploads/";
-    $target_file = $target_dir . basename($_FILES["sign"]["name"]);
-    if (move_uploaded_file($_FILES["sign"]["tmp_name"], $target_file)) {
-        $sign = $target_file;
-    } else {
-        $sign = "";
-    }
-
-    if ($stmt->execute()) {
-        header("Location: hantar.php");
-        exit();
-    } else {
-        echo "Error: " . $stmt->error;
-    }
-
-    $stmt->close();
-}
-
-$conn->close();
-?>
-
-
 <form method="POST" action="hantar.php" enctype="multipart/form-data">
     <img src="images/PbuLogo.png" alt="Politeknik Balik Pulau Logo">
     <h2><center>Borang Penamaan Calon Pilihan Raya Kampus</center></h2>
