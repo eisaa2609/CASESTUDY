@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+
 <head>
     
-    <title>Save Candidates</title>
+    <title>Main Page Candidate</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -34,9 +34,9 @@
 </head>
 <body>
     <div class="container">
-        <h1>Congratulations! Your data has been successfully saved</h1>
-        <p>Click the button below to go to list of created candidate nomination form:</p>
-        <a href="list_candidate.php" class="btn">List of Candidates</a>
+        <h1>Welcome to the Candidate Nomination Page</h1>
+        <p>Click the button below to access the nomination form:</p>
+        <a href="Candidate_form.php" class="btn">Nomination Form</a>
     </div>
 </body>
 </html>
