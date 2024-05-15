@@ -1,8 +1,6 @@
 <!DOCTYPE html>
-
+<html>
 <head>
-    
-    
     <title>Borang Penamaan Calon Pilihan Raya Kampus</title>
     <style>
         body {
@@ -74,29 +72,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $exco = $_POST['exco'];
     $date = $_POST['date'];
 
-    // Handle file upload
-    $target_dir = "uploads/";
-    $target_file = $target_dir . basename($_FILES["sign"]["name"]);
-    if (move_uploaded_file($_FILES["sign"]["tmp_name"], $target_file)) {
-        $sign = $target_file;
+
+    $sql = "INSERT INTO candidates (name, icNo, regNo, phoneNo, program, jabatan, hpnm, ulang_semester, tindakan_tatatertib, sedang_tatatertib, exco, date)
+            VALUES ('$nama', '$icNo', '$regNo', '$phoneNo', '$program', '$jabatan', '$hpnm', '$ulang_semester', '$tindakan_tatatertib', '$sedang_tatatertib', '$exco', '$date')";
+
+    if (mysqli_query($con, $sql)) {
+        header("location: candidate_save.php");
     } else {
-        $sign = "";
+        echo "Error: " . $sql . "<br>" . mysqli_error($con);
     }
 
-    if ($stmt->execute()) {
-        header("Location: candidate_save.php");
-        exit();
-    } else {
-        echo "Error: " . mysqli_error($stmt);
-    }
-
-    mysqli_close($stmt);
+    mysqli_error($con);
 }
-mysqli_close($con);
 ?>
 
 
-<form method="POST" action="candidate_save.php">
+
+<form method="POST">
     <img src="images/PbuLogo.png" alt="Politeknik Balik Pulau Logo">
     <h2><center>Borang Penamaan Calon Pilihan Raya Kampus</center></h2>
 
