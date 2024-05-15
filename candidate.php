@@ -2,7 +2,7 @@
 
 <head>
     
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>Borang Penamaan Calon Pilihan Raya Kampus</title>
     <style>
         body {
@@ -60,8 +60,8 @@
 // Database connection
 $servername = "localhost";
 $username = "root";
-$password = "";
-$dbname = "your_database_name";
+$password = "Atien098";
+$dbname = "candidate_nomination_system";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
