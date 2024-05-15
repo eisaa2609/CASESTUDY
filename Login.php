@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["btnLogin"])) {
                 header("Location: main_page_officer.php");
                 exit();
         } elseif ($role == 'candidate') {
-                header("Location: main_page_candidate.php");
+                header("Location: candidate_main.php");
                 exit();
         } 
     } else {

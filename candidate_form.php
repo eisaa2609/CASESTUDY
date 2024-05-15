@@ -31,7 +31,6 @@
         }
         label {
             display: inline-block;
-            width: 200px;
             vertical-align: top;
         }
         input[type="text"],
@@ -44,12 +43,12 @@
             display: block;
             margin: 0 auto;
         }
+        
         .radio-group {
             display: flex;
             align-items: center;
         }
         .radio-group label {
-            width: auto;
             margin-left: 10px;
         }
     </style>
@@ -58,22 +57,9 @@
 
 <?php
 // Database connection
-$servername = "localhost";
-$username = "root";
-$password = "Atien098";
-$dbname = "candidate_nomination_system";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include('connection.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Prepare and bind
-    $stmt = $conn->prepare("INSERT INTO candidates (nama, icNo, regNo, phoneNo, program, jabatan, hpnm, ulang_semester, tindakan_tatatertib, sedang_tatatertib, exco, sign, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssssssssssss", $nama, $icNo, $regNo, $phoneNo, $program, $jabatan, $hpnm, $ulang_semester, $tindakan_tatatertib, $sedang_tatatertib, $exco, $sign, $date);
-
     // Set parameters and execute
     $nama = $_POST['nama'];
     $icNo = $_POST['icNo'];
@@ -98,20 +84,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if ($stmt->execute()) {
-        header("Location: hantar.php");
+        header("Location: candidate_save.php");
         exit();
     } else {
-        echo "Error: " . $stmt->error;
+        echo "Error: " . mysqli_error($stmt);
     }
 
-    $stmt->close();
+    mysqli_close($stmt);
 }
-
-$conn->close();
+mysqli_close($con);
 ?>
 
 
-<form method="POST" action="hantar.php" enctype="multipart/form-data">
+<form method="POST" action="candidate_save.php">
     <img src="images/PbuLogo.png" alt="Politeknik Balik Pulau Logo">
     <h2><center>Borang Penamaan Calon Pilihan Raya Kampus</center></h2>
 
@@ -150,6 +135,7 @@ $conn->close();
         <div class="radio-group">
             <input type="radio" id="ulang_semester_ya" name="ulang_semester" value="YA">
             <label for="ulang_semester_ya">YA</label>
+
             <input type="radio" id="ulang_semester_tidak" name="ulang_semester" value="TIDAK">
             <label for="ulang_semester_tidak">TIDAK</label>
         </div><br><br>
@@ -158,6 +144,7 @@ $conn->close();
         <div class="radio-group">
             <input type="radio" id="tindakan_tatatertib_ya" name="tindakan_tatatertib" value="YA">
             <label for="tindakan_tatatertib_ya">YA</label>
+
             <input type="radio" id="tindakan_tatatertib_tidak" name="tindakan_tatatertib" value="TIDAK">
             <label for="tindakan_tatatertib_tidak">TIDAK</label>
         </div><br><br>
@@ -166,6 +153,7 @@ $conn->close();
         <div class="radio-group">
             <input type="radio" id="sedang_tatatertib_ya" name="sedang_tatatertib" value="YA">
             <label for="sedang_tatatertib_ya">YA</label>
+
             <input type="radio" id="sedang_tatatertib_tidak" name="sedang_tatatertib" value="TIDAK">
             <label for="sedang_tatatertib_tidak">TIDAK</label>
         </div><br><br>
@@ -174,6 +162,7 @@ $conn->close();
         <div class="radio-group">
             <input type="radio" id="exco_ya" name="exco" value="YA">
             <label for="exco_ya">YA</label>
+            
             <input type="radio" id="exco_tidak" name="exco" value="TIDAK">
             <label for="exco_tidak">TIDAK</label>
         </div><br><br>
