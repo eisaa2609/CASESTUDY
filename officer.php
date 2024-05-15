@@ -36,7 +36,7 @@
     <div class="container">
         <h1>Welcome to the Officer Page</h1>
         <p>Click the button below to access the list of submitted candidate nomination form:</p>
-        <a href="Candidate_form.php" class="btn">Tulis la gapo gapo</a>
+        <a href="listing.php" class="btn">List of Submitted Candidate</a>
     </div>
 </body>
 </html>
