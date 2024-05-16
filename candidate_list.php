@@ -1,8 +1,15 @@
 <?php
-  include ('connection.php');
+include ('connection.php');
 
 //sql query to select data from database
 $sql = "SELECT name, regNo, date FROM candidates;";
+
+if(isset($_GET['btnSearch'])) {
+    $searchCandidate = $_GET['search-candidate'];
+
+    $sql = "SELECT name, regNo, date FROM candidates WHERE name LIKE '%$searchCandidate%'";
+}
+
 $result = mysqli_query($con,$sql);
 
 mysqli_close($con);
@@ -66,8 +73,10 @@ mysqli_close($con);
 </head>
 <body>
     <h2><b>Candidates List</b></h2>
-    <input type='search' id='search-candidates' name='search-candidates' placeholder='Cari Calon'/>
-    <input type='submit' value='Cari' id='btnSearch' name='btnSearch'/>
+    <form method="GET">
+        <input type='search' id='search-candidate' name='search-candidate' placeholder='Cari Calon'/>
+        <input type='submit' value='Cari' id='btnSearch' name='btnSearch'/>
+    </form>
     <br><br>
     <table align='center'>
         <tr>
@@ -95,10 +104,9 @@ mysqli_close($con);
             }
         ?>
     </table>
-</body>
-<body>
     <div class="container">
         <a href="candidate_save.php" class="btn">BACK</a>
     </div>
-    </body>
+</body>
 </html>
+            
