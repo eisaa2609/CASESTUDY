@@ -88,10 +88,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         move_uploaded_file($sign_tmp, $sign); 
     } 
 
-    // Insert data into the database
-    $sql = "INSERT INTO candidates (name, icNo, regNo, phoneNo, program, jabatan, hpnm, ulang_semester, tindakan_tatatertib, sedang_tatatertib, exco, date, user_picture, sign)
-            VALUES ('$nama', '$icNo', '$regNo', '$phoneNo', '$program', '$jabatan', '$hpnm', '$ulang_semester', '$tindakan_tatatertib', '$sedang_tatatertib', '$exco', '$date', '$user_picture_name', '$sign_name')";
+    // Check if IC number exists in the database
+        $sql_check = "SELECT * FROM candidates WHERE icNo = '$icNo'";
+        $result_check = mysqli_query($con, $sql_check);
+        $num_rows = mysqli_num_rows($result_check);
 
+        if ($num_rows > 0) {
+            // IC number exists, update the record
+            $sql = "UPDATE candidates 
+                    SET name = '$nama', regNo = '$regNo', phoneNo = '$phoneNo', program = '$program', jabatan = '$jabatan', hpnm = '$hpnm', 
+                        ulang_semester = '$ulang_semester', tindakan_tatatertib = '$tindakan_tatatertib', sedang_tatatertib = '$sedang_tatatertib', 
+                        exco = '$exco', date = '$date', user_picture = '$user_picture_name', sign = '$sign_name' 
+                    WHERE icNo = '$icNo'";
+        } else {
+            // IC number does not exist, insert a new record
+            $sql = "INSERT INTO candidates (name, icNo, regNo, phoneNo, program, jabatan, hpnm, ulang_semester, tindakan_tatatertib, sedang_tatatertib, exco, date, user_picture, sign)
+                    VALUES ('$nama', '$icNo', '$regNo', '$phoneNo', '$program', '$jabatan', '$hpnm', '$ulang_semester', '$tindakan_tatatertib', '$sedang_tatatertib', '$exco', '$date', '$user_picture_name', '$sign_name')";
+        }
+        
     if (mysqli_query($con, $sql)) {
         header("location: candidate_save.php");
     } else {
