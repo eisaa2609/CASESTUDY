@@ -2,7 +2,7 @@
   include ('connection.php');
 
 //sql query to select data from database
-$sql = "SELECT name, program, jabatan, hpnm, date FROM candidates;";
+$sql = "SELECT name, regNo, date FROM candidates;";
 $result = mysqli_query($con,$sql);
 
 mysqli_close($con);
@@ -32,6 +32,7 @@ mysqli_close($con);
 
         table, tr, th {
             padding: 12px 35px;
+            width: 60%;
         }
 
         input[type=search] {
@@ -45,6 +46,22 @@ mysqli_close($con);
         input[type=search], input[type=submit] {
             padding: 12px 20px;
         }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 250px; 
+
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -56,9 +73,8 @@ mysqli_close($con);
         <tr>
             <th>No. </th>
             <th>Nama Penuh</th>
-            <th>Program</th>
-            <th>Jabatan</th>
-            <th>HPNM</th>
+            <th>Registration No</th>
+            <th>Date</th>
         </tr>
 
         <?php 
@@ -71,9 +87,8 @@ mysqli_close($con);
             <!-- Get data from each column -->
             <td><?php echo $i;?></td>
             <td><?php echo $rows['name'];?></td>
-            <td><?php echo $rows['program'];?></td>
-            <td><?php echo $rows['jabatan'];?></td>
-            <td><?php echo $rows['hpnm'];?></td>
+            <td><?php echo $rows['regNo'];?></td>
+            <td><?php echo $rows['date'];?></td>
         </tr>
         <?php
             $i++;
@@ -81,4 +96,9 @@ mysqli_close($con);
         ?>
     </table>
 </body>
+<body>
+    <div class="container">
+        <a href="candidate_save.php" class="btn">BACK</a>
+    </div>
+    </body>
 </html>

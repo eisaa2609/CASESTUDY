@@ -36,7 +36,7 @@
     <div class="container">
         <h1>Welcome to the Officer Page</h1>
         <p>Click the button below to access the list of submitted candidate nomination form:</p>
-        <a href="listing.php" class="btn">List of Submitted Candidate</a>
+        <a href="officer_list.php" class="btn">List of Submitted Candidate</a>
     </div>
 </body>
 </html>

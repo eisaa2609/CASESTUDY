@@ -43,9 +43,23 @@
                 padding: 12px 20px;
             }
 
-            
+            .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: auto; 
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
 
-        </style>
     </head>
     <body>
         <h2><b>Senarai Calon</h2>
@@ -87,6 +101,11 @@
             ?>
             
         </table>
-
     </body>
+    <body>
+    <div class="container">
+        <a href="main_page_officer.php" class="btn">BACK</a>
+    </div>
+    </body>
+    
 </html>
